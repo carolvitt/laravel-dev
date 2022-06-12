@@ -4,10 +4,9 @@
   <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="csrf-token" content="{{ csrf_token() }}">
       <meta name="description" content="">
-      <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-      <meta name="generator" content="Hugo 0.98.0">
-      <title>Product example · Bootstrap v5.2</title>
+      <title>Projeto Santins</title>
       
       <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/product/">
       
@@ -42,10 +41,9 @@
     <header class="site-header sticky-top py-1">
         <nav class="container d-flex flex-column flex-md-row justify-content-between">
             <a class="py-2 d-none d-md-inline-block" href="{{ route('home') }}">Home</a>
-            <a class="py-2 d-none d-md-inline-block" href="{{ route('import') }}">Importar</a>
         <a class="py-2 d-none d-md-inline-block" href="{{ route('search') }}">Buscar</a>
         <a class="py-2 d-none d-md-inline-block" href="{{ route('add') }}">Adicionar</a>
-        <a class="py-2 d-none d-md-inline-block" href="{{ route('inscription') }}">Minhas inscrições</a>
+        <a class="py-2 d-none d-md-inline-block" href="{{ route('showInscriptions') }}">Minhas inscrições</a>
         
             <!-- Authentication Links -->
             @guest

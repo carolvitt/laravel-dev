@@ -21,47 +21,73 @@
           </thead>
           <tbody>
              {{-- @php
-                 var_dump($data['name']);
+                 var_dump($query);
                  die();
              @endphp --}}
-          @if(isset($data) and !empty($data))
-             
+          @if(isset($results))
+                @foreach($results as $result)
               <tr>
                   <td>
-                      {{$data['name']}}
+                      {{$result['name']}}
                   </td>
                   <td>
-                      {{($data['country'])}}
+                      {{($result['country'])}}
                   </td>
                   <td>
-                      {{($data['alpha_two_code'])}}
+                      {{($result['alpha_two_code'])}}
                   </td>
                   <td>
-                      {{($data['state-province'])}}
+                      {{($result['state-province'])}}
                   </td>
                   <td>
-                      {{($data['domains'])}}
+                      {{($result['domains'])}}
                   </td>
                   <td>
-                      {{($data['web_pages'])}}
+                      {{($result['web_pages'])}}
                   </td>
                   {{-- <form method="post" action="{{ route('/') }}"> --}}
                         {{-- @csrf --}}
                       <td>
-                          {{-- <input type="hidden" value="{{$value['id']}}"> --}}
-                          <button class="btn btn-outline-secondary" type="submit" onclick="removeInscription()">Remover inscrição</button>
+                          <button class="btn btn-outline-secondary inscribe" id="{{$result['id']}}" type="submit">Remover inscrição</button>
                       </td>
                   {{-- </form> --}}
               </tr>
-           
+              @endforeach
           </tbody>
           @endif
       </table>
       </div>
 
-@endsection
 <script>
-      $(document).ready(function(){
-  
-      )};
+    $(document).ready(function(){
+        
+       
+        $('.inscribe').click(function() {
+    
+            var id = $(this).attr('id');
+            
+            $.ajaxSetup({
+                headers:
+                {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+                
+                
+            $.ajax({
+                type: "post",
+                url: "{{ route('removeInscription') }}",
+                dataType: "json",
+                data: {'id':id},
+                success: function(response){
+                    console.log(response);
+                }
+            });
+            
+            $(this).replaceWith('<p>Inscrição removida!</p>'); 
+
+        });
+
+    });
 </script>
+@endsection

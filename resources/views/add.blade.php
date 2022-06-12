@@ -1,64 +1,61 @@
 @extends('layouts.app')
 @section('content')
+
 <div class="container">
-    <div class="row g-5">
-        <h4 class="mb-2">Adicionar Universidade</h4>
-        <form class="needs-validation" novalidate>
-            <div class="row mb-3">
-                <div class="col-auto">
-                    <label for="firstName" class="form-label">Código</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                </div>
-                <div class="invalid-feedback">
-                    Valid first name is required.
-                </div>
-                <div class="col-auto">
-                    <label for="lastName" class="form-label">País</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                </div>
-                <div class="invalid-feedback">
-                    Valid last name is required.
-                </div>
-            </div>
-            <div class="row mb-3">
-                <div class="col-auto">
-                    <label for="firstName" class="form-label">Domínio</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
-                </div>
-                <div class="invalid-feedback">
-                    Valid first name is required.
-                </div>
-                <div class="col-auto">
-                    <label for="lastName" class="form-label">Nome</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                </div>
-                <div class="invalid-feedback">
-                    Valid last name is required.
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-auto">
-                    <label for="lastName" class="form-label">Site</label>
-                </div>
-                <div class="col-auto">
-                    <input type="text" class="form-control" id="lastName" placeholder="" value="" required>
-                </div>
-                <div class="invalid-feedback">
-                    Valid last name is required.
-                </div>
-                <div class="col-auto">
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Enviar</button>
+    <div class="row py-5 justify-content-center text-center">
+        <div class="col-md-8">
+            <h1>Adicionar sugestão de universidade</h1>
+            <div class="card mt-3">
+                <div class="card-body">
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+
+                        <div class="row mb-3">
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nome da universidade') }}</label>
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="code" class="col-md-4 col-form-label text-md-end">{{ __('Código do país') }}</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="code" value="{{ old('code') }}">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="country" class="col-md-4 col-form-label text-md-end">{{ __('País') }}</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="country" value="{{ old('country') }}">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="domains" class="col-md-4 col-form-label text-md-end">{{ __('Domínios') }}</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="domains" value="{{ old('domains') }}">
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <label for="web_pages" class="col-md-4 col-form-label text-md-end">{{ __('Sites') }}</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="web_pages" value="{{ old('web_pages') }}">
+                            </div>
+                        </div>
+
+                        <div class="row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    {{ __('Adicionar sugestão') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-        </form>
+        </div>
     </div>
 </div>
 

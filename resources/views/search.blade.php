@@ -53,15 +53,9 @@
                 <td>
                     {{($value['web_pages'])}}
                 </td>
-                {{-- <form method="post" action="{{ route('inscription') }}"> --}}
-                    @csrf
-                   
-                    <td id="{{$value['name']}}">
-                        <input type="hidden" name="data" value="{{$value}}">
-                        <button class="btn btn-outline-secondary" id="{{$value['id']}}" type="submit">Inscrever-se</button>
+                    <td>    
+                        <button class="btn btn-outline-secondary inscribe" id="{{$value['id']}}" type="submit">Inscrever-se</button>
                     </td>
-                    
-                {{-- </form> --}}
             </tr>
             @endforeach
         </tbody>
@@ -75,11 +69,32 @@
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $("button").click(function () {
-            $(this).hide();
-            $("td").html('<p style="color: #50d149">Inscrição realizada!</p>');
+        $('.inscribe').click(function() {
+    
+            var id = $(this).attr('id');
+            
+            $.ajaxSetup({
+                headers:
+                {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+                
+                
+            $.ajax({
+                type: "post",
+                url: "{{ route('makeInscription') }}",
+                dataType: "json",
+                data: {'id':id},
+                success: function(response){
+                    console.log(response);
+                }
+            });
+            
+            $(this).replaceWith('<p>Inscrição realizada!</p>'); 
+
         });
-    });
+});
 
 </script>
 @endsection

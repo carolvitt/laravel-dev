@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.ui')
 @section('content')       
 
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">

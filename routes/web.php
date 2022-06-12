@@ -15,30 +15,23 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', function () {return view('home');});
 
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/add', function () {
-    return view('add');
-})->name('add');
+Route::get('/add', function () {return view('add');})->name('add');
 
 Route::get('/search', [Controller::class, 'search'])->name('search');
 
-Route::get('/import', function () {
-    return view('import');
-});
-
 Route::post('import', [Controller::class, 'import'])->name('import');
 
-Route::get('/inscription', function () {
-    return view('inscription');
-});
+Route::get('/inscription', [Controller::class, 'showInscriptions'])->name('showInscriptions');
 
-Route::post('inscription', [Controller::class, 'inscription'])->name('inscription');
+Route::post('search', [Controller::class, 'makeInscription'])->name('makeInscription');
+
+Route::post('inscription', [Controller::class, 'removeInscription'])->name('removeInscription');
+
 
 
