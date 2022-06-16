@@ -5,58 +5,52 @@
       <div class="py-5 text-center">
           <h1>Minhas inscrições</h1>
       </div>
+    <div class="table-responsive">
+        <table class="table table-hover mx-auto">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">País</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Estado/Província</th>
+                    <th scope="col">Domínios</th>
+                    <th scope="col">Sites</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+            @if(isset($results))
+                    @foreach($results as $result)
+                <tr>
+                    
+                    <td>
+                        {{$result['name']}}
+                    </td>
+                    <td>
+                        {{($result['country'])}}
+                    </td>
+                    <td>
+                        {{($result['alpha_two_code'])}}
+                    </td>
+                    <td>
+                        {{($result['state-province'])}}
+                    </td>
+                    <td>
+                        {{($result['domains'])}}
+                    </td>
+                    <td>
+                        {{($result['web_pages'])}}
+                    </td>
+                        <td>
+                            <button class="btn btn-secondary inscribe" id="{{$result['university_id']}}" type="submit">Remover inscrição</button>
+                        </td>
+                </tr>
+                @endforeach
+            </tbody>
+            @endif
+        </table>
+    </div>
 </div>
-<div class="d-flex m-4">
-      <table class="table table-striped mx-auto" style="max-width: 80%">
-          <thead>
-              <tr>
-                  <th width=25%">Nome</th>
-                  <th width=10%">País</th>
-                  <th width=5%">Código</th>
-                  <th width=15%">Estado/Província</th>
-                  <th width=15%">Domínios</th>
-                  <th width=15%">Sites</th>
-                  <th width=10%"></th>
-              </tr>
-          </thead>
-          <tbody>
-             {{-- @php
-                 var_dump($query);
-                 die();
-             @endphp --}}
-          @if(isset($results))
-                @foreach($results as $result)
-              <tr>
-                  <td>
-                      {{$result['name']}}
-                  </td>
-                  <td>
-                      {{($result['country'])}}
-                  </td>
-                  <td>
-                      {{($result['alpha_two_code'])}}
-                  </td>
-                  <td>
-                      {{($result['state-province'])}}
-                  </td>
-                  <td>
-                      {{($result['domains'])}}
-                  </td>
-                  <td>
-                      {{($result['web_pages'])}}
-                  </td>
-                  {{-- <form method="post" action="{{ route('/') }}"> --}}
-                        {{-- @csrf --}}
-                      <td>
-                          <button class="btn btn-outline-secondary inscribe" id="{{$result['id']}}" type="submit">Remover inscrição</button>
-                      </td>
-                  {{-- </form> --}}
-              </tr>
-              @endforeach
-          </tbody>
-          @endif
-      </table>
-      </div>
 
 <script>
     $(document).ready(function(){

@@ -21,15 +21,17 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('/add', function () {return view('add');})->name('add');
+Route::post('import', [Controller::class, 'import'])->name('import');
 
 Route::get('/search', [Controller::class, 'search'])->name('search');
 
-Route::post('import', [Controller::class, 'import'])->name('import');
+Route::post('search', [Controller::class, 'makeInscription'])->name('makeInscription');
+
+Route::get('/add', function () {return view('add');});
+
+Route::post('add', [Controller::class, 'addSugestion'])->name('add');
 
 Route::get('/inscription', [Controller::class, 'showInscriptions'])->name('showInscriptions');
-
-Route::post('search', [Controller::class, 'makeInscription'])->name('makeInscription');
 
 Route::post('inscription', [Controller::class, 'removeInscription'])->name('removeInscription');
 

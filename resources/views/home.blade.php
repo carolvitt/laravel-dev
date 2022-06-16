@@ -1,14 +1,27 @@
 @extends('layouts.ui')
-@section('content')       
+@section('css')
+<style>
+  body {
+    
+    background-image: url('../public/img/bg.png');
+    background-size: cover;
+  }
+  footer {
+    margin-top:100px;
+  }
 
-<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-  <div class="col-md-5 p-lg-5 mx-auto my-5">
-    <h1 class="display-4 fw-normal">Seja bem-vindo(a)!</h1>
-    <p class="lead fw-normal">Neste portal, você terá acesso às melhores universidades dos Estados Unidos.</p>
-  </div>
+  </style>
+@endsection
+@section('content')
+<div class="d-flex justify-content-end p-4 mx-4 my-2">       
+<div class="text-center m-5 p-5">
+    <h1 class="display-4 fw-normal" style="color:white; text-shadow: black 0.1em 0.1em 0.2em">Seja bem-vindo(a)!</h1>
+    <p class="lead fw-normal" style="color:white; text-shadow: black 0.1em 0.1em 0.2em">Neste portal, você terá acesso às melhores<br> universidades dos Estados Unidos.</p>
+</div>
+</div>
   <div class="product-device shadow-sm d-none d-md-block"></div>
   <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-</div>  
+
 
 @endsection
 

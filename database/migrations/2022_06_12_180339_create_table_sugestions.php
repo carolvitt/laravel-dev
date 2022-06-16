@@ -16,10 +16,10 @@ class CreateTableSugestions extends Migration
         Schema::create('sugestions', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('alpha_two_code');
-            $table->string('domains');
-            $table->string('country');
-            $table->string('web_pages');
+            $table->string('alpha_two_code')->nullable();
+            $table->string('domains')->nullable();
+            $table->string('country')->nullable();
+            $table->string('web_pages')->nullable();
             $table->timestamps();
         });
     }

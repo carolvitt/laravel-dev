@@ -1,19 +1,23 @@
 @extends('layouts.app')
 @section('content')
-
+@if (session('msg'))
+    <div class="alert alert-success">
+        {{ session('msg') }}
+    </div>
+@endif
 <div class="container">
     <div class="row py-5 justify-content-center text-center">
         <div class="col-md-8">
             <h1>Adicionar sugestão de universidade</h1>
             <div class="card mt-3">
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('add') }}">
                         @csrf
 
                         <div class="row mb-3">
-                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nome da universidade') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nome da universidade(*)') }}</label>
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}">
+                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required>
                             </div>
                         </div>
 

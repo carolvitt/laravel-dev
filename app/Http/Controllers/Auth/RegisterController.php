@@ -53,7 +53,11 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
-        ]);
+        ], [
+            'unique' => ':Attribute já existe em nossa base',
+            'confirmed' => 'As senhas não são iguais',
+            'min' => 'Mínimo de 6 caracteres'
+            ]);
     }
 
     /**

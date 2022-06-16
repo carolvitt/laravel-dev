@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Inscription;
+use App\Models\Sugestion;
 use App\Models\University;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -16,6 +17,9 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    /**
+     * Import 100st universities
+     */
     public function import() {
      
         $url = "http://universities.hipolabs.com/search?country=United+States";
@@ -61,73 +65,93 @@ class Controller extends BaseController
                 'erro' => $e->getMessage()
             ]);
         }
-        session(['created' => $name]);
-        return view('import');
+        
+        return redirect()->route('home');
     }   
     
+    /**
+     * Search universities from database
+     */
     public function search(Request $request) {
-
         try {
             $data = $request->input('search');
-            // return $data;
             
-            $columns = ['name', 'alpha_two_code', 'domains', 'country', 'state-province', 'web_pages'];
-            
-            $query = University::Where('name', 'LIKE', '%' . $data . '%')
+            $results = University::Where('name', 'LIKE', '%' . $data . '%')
                                 ->orWhere('alpha_two_code', 'LIKE', '%' . $data . '%')
                                 ->orWhere('domains', 'LIKE', '%' . $data . '%')
                                 ->orWhere('country', 'LIKE', '%' . $data . '%')
                                 ->orWhere('state-province', 'LIKE', '%' . $data . '%')
                                 ->orWhere('web_pages', 'LIKE', '%' . $data . '%')
                                 ->get();
-            
+                
         } catch (\Exception $e) {
             return response()->json([
                 'erro' => $e->getMessage()
             ]);
         }
          
-        return view('search', compact('query'));
+        return view('search', compact('results'));
     }
 
+    /**
+     * Make the inscriptions
+     */
     public function makeInscription(Request $request) {
         
-        $data = $request->all();
-        // var_dump($data['id']);
-        // die();
-        // $msg = 'Inscrição já realizada!';
-        // $exists = Inscription::where('university_id','=', $data['id']);
-        
-        // // return $exists;
-        // if(!empty($exists->get())) {
-        //     echo (json_encode($msg));
-        // }
-            
-        $query = Inscription::create([
+        $id = $request->id;
+       
+        Inscription::create([
             'user_id' => Auth::id(),
-            'university_id' => $data['id']
+            'university_id' => $id
         ]);
 
-        // return view('inscription', compact('query'));
+        return response()->json('Inscrição realizada com sucesso!');
     }
 
+    /**
+     * Show the user inscriptions
+     */
     public function showInscriptions() {
         
         $results = University::join('inscriptions', 'universities.id','=','inscriptions.university_id')
-                            ->whereNotNull('inscriptions.university_id')
+                            ->groupBy('inscriptions.university_id')
                             ->get();
-        
+    
         return view('inscription', compact('results'));
     }
 
+    /**
+     * Remove the inscriptions from database
+     */
     public function removeInscription(Request $request) {
         $data = $request->all();
         
-        $query = Inscription::where([
-                                'user_id' => Auth::id(),
-                                'university_id' => $data['id']
+        $query = Inscription::join('universities','inscriptions.university_id','=','universities.id')
+                            ->where([
+                                'inscriptions.user_id' => Auth::id(),
+                                'universities.id' => $data['id']
                             ])
                             ->delete();
+
+        echo json_encode($query);                 
+        // echo json_encode('Inscrição removida com sucesso!');
+    }
+
+    /**
+     * Insert sugestions in the table sugestions
+     */
+    public function addSugestion(Request $request) {
+        $data = $request->all();
+        
+        $query = Sugestion::create([
+                'name' => $data['name'],
+                'alpha_two_code' => $data['code'],
+                'domains' => $data['domains'],
+                'country' => $data['country'],
+                'web_pages' => $data['web_pages']
+        ]);
+        session()->flash('msg', 'Sugestão enviada com sucesso!');
+        return redirect()->route('add');
     }
 
 }

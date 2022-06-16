@@ -3,9 +3,8 @@
 <div class="d-flex justify-content-center mt-5">
     <div class="row g-5 text-center">
         <h4 class="mb-2">Importar Universidade</h4>
-        @if (Session::has('created'))
-            
-        <p>Universidades importadas com sucesso!</p>
+        @if(isset($query) && !empty($query))
+            <p>Universidades importadas com sucesso!</p>
         @else
         <form class="form-group" method="post" action="{{ route('import') }}">
             @csrf

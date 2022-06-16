@@ -17,8 +17,12 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link href="{{ asset('bootstrap/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('css/ui.css') }}" rel="stylesheet">
+    @yield('css')
+    
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -79,5 +83,10 @@
             @yield('content')
         </main>
     </div>
+    <footer class="container fixed-bottom">
+        <div class="text-end">
+            <p style="color:white; text-shadow: black 0.1em 0.1em 0.2em">&copy; Todos os direitos reservados - {{ date('Y')}} - Desenvolvido por Carolina Vitt</p>
+          </div>
+      </footer>
 </body>
 </html>

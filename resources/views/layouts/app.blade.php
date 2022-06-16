@@ -37,49 +37,69 @@
 
 </head>
 <body>
-    
-    <header class="site-header sticky-top py-1">
-        <nav class="container d-flex flex-column flex-md-row justify-content-between">
-            <a class="py-2 d-none d-md-inline-block" href="{{ route('home') }}">Home</a>
-        <a class="py-2 d-none d-md-inline-block" href="{{ route('search') }}">Buscar</a>
-        <a class="py-2 d-none d-md-inline-block" href="{{ route('add') }}">Adicionar</a>
-        <a class="py-2 d-none d-md-inline-block" href="{{ route('showInscriptions') }}">Minhas inscrições</a>
-        
-            <!-- Authentication Links -->
-            @guest
-                @if (Route::has('login'))
-                    
-                        <a href="{{ route('login') }}">{{ __('Login') }}</a>
-                  
-                @endif
 
-                @if (Route::has('register'))
-                    
-                        <a href="{{ route('register') }}">{{ __('Register') }}</a>
-                    
-                @endif
-            @else
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Offcanvas navbar large">
+        <div class="container-fluid">
+          
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar2" aria-controls="offcanvasNavbar2">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="offcanvas offcanvas-end text-white bg-dark" tabindex="-1" id="offcanvasNavbar2" aria-labelledby="offcanvasNavbar2Label">
+            <div class="offcanvas-header">
+              
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-evenly flex-grow-1 pe-3">
+                <li class="nav-item">
+                    <a class="nav-link text-center" href="{{ route('home') }}">Home</a>
+                </li>
                 
-                    <a id="navbarDropdown" class="py-2 d-none d-md-inline-block dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="py-2 d-none d-md-inline-block dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
+                <li class="nav-item">
+                    <a class="nav-link text-center" href="{{ route('search') }}">Buscar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-center" href="{{ route('add') }}">Adicionar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-center" href="{{ route('showInscriptions') }}">Minhas inscrições</a>
+                </li>
+                <!-- Authentication Links -->
                 
-            @endguest
-      
-    </nav>
-    </header>
+                    @guest
+                        @if (Route::has('login'))
+                            
+                                <a href="{{ route('login') }}">{{ __('Login') }}</a>
+                        
+                        @endif
+
+                        @if (Route::has('register'))
+                            
+                                <a href="{{ route('register') }}">{{ __('Register') }}</a>
+                            
+                        @endif
+                        @else
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                @csrf
+                            <div class="dropdown">
+                                <a class="nav-link text-center dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </a>
+                               
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                  <li><a class="dropdown-item" href="{{ route('logout') }}"  onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">{{ __('Logout') }}</a></li>
+                                 </form> 
+                                </ul>
+                              </div>
+                         
+                
+                @endguest
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
 
 <main>
     @yield('content')

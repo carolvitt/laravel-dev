@@ -8,93 +8,91 @@
     <form method="get" action="{{ route('search') }}">
         <div class="d-flex justify-content-center mb-3">
             <div class="row mb-3">
-                <div class="col-sm-9">
+                <div class="col-lg-9 col-sm-12">
                     <input class="form-control" type="search" name="search" placeholder="O que deseja pesquisar?">
                 </div>
-                <div class="col-sm-3">
-                    <button class="btn btn-outline-success" type="submit">Pesquisar</button>
+                <div class="col-lg-3 col-sm-12">
+                    <button class="btn btn-success" type="submit">Pesquisar</button>
                 </div>
             </div>
         </div>
     </form> 
-</div>
-<div class="d-flex m-4">
-    <table class="table table-striped mx-auto" style="max-width: 80%">
-        <thead>
-            <tr>
-                <th width=25%">Nome</th>
-                <th width=10%">País</th>
-                <th width=5%">Código</th>
-                <th width=15%">Estado/Província</th>
-                <th width=15%">Domínios</th>
-                <th width=15%">Sites</th>
-                <th width=10%"></th>
-            </tr>
-        </thead>
-        <tbody>
-        @if(isset($query))
-            @foreach($query as $value)
-            <tr>
-                <td>
-                    {{$value['name']}}
-                </td>
-                <td>
-                    {{($value['country'])}}
-                </td>
-                <td>
-                    {{($value['alpha_two_code'])}}
-                </td>
-                <td>
-                    {{($value['state-province'])}}
-                </td>
-                <td>
-                    {{($value['domains'])}}
-                </td>
-                <td>
-                    {{($value['web_pages'])}}
-                </td>
-                    <td>    
-                        <button class="btn btn-outline-secondary inscribe" id="{{$value['id']}}" type="submit">Inscrever-se</button>
+    <div class="table-responsive">
+        <table class="table table-hover mx-auto">
+            <thead>
+                <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">País</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Estado/Província</th>
+                    <th scope="col">Domínios</th>
+                    <th scope="col">Sites</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+            @if(isset($results) && !empty($results))
+                @foreach($results as $result)
+                <tr>
+                    <td>
+                        {{$result['name']}}
                     </td>
-            </tr>
-            @endforeach
-        </tbody>
-        @endif
-    </table>
-</div>
-
+                    <td>
+                        {{($result['country'])}}
+                    </td>
+                    <td>
+                        {{($result['alpha_two_code'])}}
+                    </td>
+                    <td>
+                        {{($result['state-province'])}}
+                    </td>
+                    <td>
+                        {{($result['domains'])}}
+                    </td>
+                    <td>
+                        {{($result['web_pages'])}}
+                    </td>
+                        <td> 
+                            <button class="btn btn-secondary inscribe" id="{{$result['id']}}" type="submit">Realizar inscrição</button>
+                        </td>
+                </tr>
+                @endforeach
+            </tbody>
+            @endif
+        </table>
+    </div>
 </div>
     
 
 <script type="text/javascript">
     $(document).ready(function() {
 
-        $('.inscribe').click(function() {
-    
-            var id = $(this).attr('id');
+        $.ajaxSetup({
+            headers:
+            {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
             
-            $.ajaxSetup({
-                headers:
-                {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-                
-                
-            $.ajax({
+            $('.inscribe').click(function() {
+
+                var id = $(this).attr('id');
+
+                $.ajax({
                 type: "post",
                 url: "{{ route('makeInscription') }}",
                 dataType: "json",
                 data: {'id':id},
                 success: function(response){
-                    console.log(response);
-                }
+                  
+                        console.log(response)
+                    } 
+                });
+                
+                $(this).replaceWith('<p>Inscrição realizada!</p>'); 
             });
-            
-            $(this).replaceWith('<p>Inscrição realizada!</p>'); 
-
-        });
-});
+    });
+           
 
 </script>
 @endsection
