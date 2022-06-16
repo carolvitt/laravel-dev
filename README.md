@@ -9,6 +9,7 @@
 Aplicação com sistema de registro e login, com o objetivo de mostrar algumas Universidades dos Estados Unidos e possibilitar a inscrição do usuário nestas.
 Para tanto, as tecnologias utilizadas foram:
 
+- Laravel.
 - PHP.
 - Bootstrap.
 - JQuery.
