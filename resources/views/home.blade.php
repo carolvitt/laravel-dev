@@ -4,7 +4,7 @@
   body {
     
     background-image: url('../public/img/bg.png');
-    background-size: cover;
+    background-size: cover no-repeat;
   }
   footer {
     margin-top:100px;

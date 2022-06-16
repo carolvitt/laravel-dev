@@ -16,4 +16,5 @@ Para tanto, as tecnologias utilizadas foram:
 - Requisições ajax.
 - Linguagem MySQL.
 
+Além disso, foi desenvolvida uma Api que, quando recebe e-mail e senha do usuário, retorna seus dados e suas inscrições.
 
